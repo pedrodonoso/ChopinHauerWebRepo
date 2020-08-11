@@ -40,12 +40,12 @@ export default [
     component: AddNewPost
   },
   {
-    path: "/all-pservice",
+    path: "/pservice/all-pservice",
     layout: DefaultLayout,
     component: AllPService
   },
   {
-    path: "/add-new-pservice",
+    path: "/pservice/add-new-pservice",
     layout: DefaultLayout,
     component: AddNewPService
   },
@@ -70,12 +70,12 @@ export default [
     component: BlogPosts
   },
   {
-    path: "/teams-list",
+    path: "/team/teams-list",
     layout: DefaultLayout,
     component: TeamsList
   },
   {
-    path: "/teams-form",
+    path: "/team/teams-form",
     layout: DefaultLayout,
     component: TeamForm
   },
