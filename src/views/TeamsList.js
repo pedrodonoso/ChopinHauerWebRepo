@@ -5,6 +5,16 @@ import {
   Col,
   Card,
   CardBody,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardSubtitle,
+  ListGroup,
+  ListGroupItem,
+  Badge,
+  CardDeck,
+  ButtonGroup,
+  Button
 } from "shards-react";
 import teamsService from '../services/teams.service';
 
@@ -27,6 +37,7 @@ class TeamsList extends Component {
     });
   }
 
+
   render() {
     const { teams } = this.state;
 
@@ -34,22 +45,66 @@ class TeamsList extends Component {
       <Container fluid className="main-content-container px-4">
         {/* Page Header */}
         <Row noGutters className="page-header py-4">
-          <PageTitle sm="4" title="Champions League Teams" subtitle="Ayudantía" className="text-sm-left" />
+          <PageTitle sm="4" title="Muestra de todos los Equipos" subtitle="Equipos de Personal de Servicio" className="text-sm-left" />
         </Row>
 
         <Row>
           {teams.map((team, index) => {
             return (
-              <Col lg="2" key={team.id}>
-                <Card small className="card-post mb-4">
+              <Col md="4" key={team.id}>
+                <Card small className="card-post">
+                  <CardHeader>
+                    <CardTitle>
+                      {team.tag}
+                    </CardTitle>
+
+                  </CardHeader>
                   <CardBody>
-                    <h5 className="card-title">{team.nombre}</h5>
-                    <p className="card-text text-muted">{team.pais}</p>
+                    <Row  >
+                      {team.personalEquipo.map((pServiceItem, index) => {
+                        return (
+                            <Col  key={pServiceItem.id}>
+                              <ListGroup small={true} flush={false}  className="my-2" key={pServiceItem.id} align="center">
+
+                                <ListGroupItem >
+                                  <Row>
+                                    <Col>
+                                      {pServiceItem.nombres}
+
+                                    </Col>
+                                    <Col>
+                                      <Badge> {pServiceItem.profesion}</Badge>
+                                    </Col>
+                                  </Row>
+
+
+                                </ListGroupItem>
+                                <ListGroupItem>
+                                  <Col lg="3">
+                                    <ButtonGroup size="sm">
+                                      <Button  onClick={console.log("editar")}>
+                                        Editar
+                                      </Button>
+                                      <Button  onClick={console.log("Eliminar")}>
+                                        Eliminar
+                                      </Button>
+                                    </ButtonGroup>
+                                  </Col>
+                                </ListGroupItem>
+
+                              </ListGroup>
+                            </Col>
+
+                        )
+                      })}
+                  </Row>
+
                   </CardBody>
                 </Card>
               </Col>
             )
-          })}
+          })
+        }
         </Row>
       </Container>
     );

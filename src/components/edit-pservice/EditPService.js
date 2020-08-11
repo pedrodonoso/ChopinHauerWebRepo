@@ -1,5 +1,4 @@
-import React, { useState,Component  } from 'react';
-import ReactQuill from "react-quill";
+import React, { Component  } from 'react';
 import { Modal,
   ModalBody,
   ModalHeader,Form,FormGroup,FormInput,Button } from "shards-react";
@@ -35,6 +34,7 @@ class EditPService extends Component {
       telefono: data.telefono
     });
 
+    console.log(this.state.data)
   }
 
 
@@ -44,21 +44,20 @@ class EditPService extends Component {
       apellido,
       rut,
       profesion,
-      emaill,
+      email,
       telefono
     } = this.state;
     return(
     <Modal open={this.props.open} toggle={this.props.thisToggle} >
-      <ModalHeader>Header</ModalHeader>
+      <ModalHeader>Editar Personal de Servicio</ModalHeader>
       <ModalBody >
-      👋 Hello there!
       <Form className="add-new-post">
 
         <FormGroup>
           <label>Nombre</label>
           <FormInput
             value={nombre}
-            onChange={(event) => this.state.nombre = event.target.value }
+            onChange={(event) => { this.setState({ ...this.state, nombre: event.target.value})}}
             size="lg"
             className="mb-3"
             placeholder="Juanin" />
@@ -67,17 +66,16 @@ class EditPService extends Component {
           <label>Apellido</label>
           <FormInput
             value={apellido}
-            onChange={(event) => this.state.apellido = event.target.value}
+            onChange={(event) => { this.setState({ ...this.state, apellido: event.target.value})}}
             size="lg"
             className="mb-3"
             placeholder="Perez" />
         </FormGroup>
-        {/*
         <FormGroup>
           <label>Rut</label>
           <FormInput
-            value={post.rut}
-            onChange={(event) => setRut(event.target.value)}
+            value={rut}
+            onChange={(event) => { this.setState({ ...this.state, rut: event.target.value})}}
             size="lg"
             className="mb-3"
             placeholder="12353345" />
@@ -85,8 +83,8 @@ class EditPService extends Component {
         <FormGroup>
           <label>Profesión</label>
           <FormInput
-            value={post.profesion}
-            onChange={(event) => setProfesion(event.target.value)}
+            value={profesion}
+            onChange={(event) => { this.setState({ ...this.state, profesion: event.target.value})}}
             size="lg"
             className="mb-3"
             placeholder="Enfermero" />
@@ -94,8 +92,8 @@ class EditPService extends Component {
         <FormGroup>
           <label>Correo</label>
           <FormInput
-            value={post.correo}
-            onChange={(event) => setCorreo(event.target.value)}
+            value={email}
+            onChange={(event) => { this.setState({ ...this.state, correo: event.target.value})}}
             size="lg"
             className="mb-3"
             placeholder="juan@gmail.com" />
@@ -103,29 +101,26 @@ class EditPService extends Component {
         <FormGroup>
           <label>Telefono</label>
           <FormInput
-            value={post.telefono}
-            onChange={(event) => setTelefono(event.target.value)}
+            value={telefono}
+            onChange={(event) => { this.setState({ ...this.state, telefono: event.target.value})}}
             size="lg"
             className="mb-3"
             placeholder="934669676" />
         </FormGroup>
-          </div>
-        */}
       </Form>
       <Button
         theme="primary"
         className="mb-2 mr-1"
         onClick={(event) => this.props.onSubmit({
-          'nombres': this.state.nombre,
+          'nombres': this.state.nombre ,
           'apellidos': this.state.apellido,
           'run': this.state.rut,
           'profesion':this.state.profesion,
           'email':this.state.correo,
           'telefono':this.state.telefono
         })}
-        // onClick={onSubmit}
         >
-          Agregar
+          Editar
         </Button>
       </ModalBody>
     </Modal>

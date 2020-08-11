@@ -1,11 +1,11 @@
 export default function() {
   return [
-    {
-      title: "Blog Dashboard",
-      to: "/blog-overview",
-      htmlBefore: '<i class="material-icons">edit</i>',
-      htmlAfter: ""
-    },
+    //{
+    //  title: "Blog Dashboard",
+    //  to: "/blog-overview",
+    //  htmlBefore: '<i class="material-icons">edit</i>',
+  //    htmlAfter: ""
+  //  },
     // {
     //   title: "Blog Posts",
     //   htmlBefore: '<i class="material-icons">vertical_split</i>',
@@ -37,22 +37,26 @@ export default function() {
     //   to: "/errors",
     // },
     {
-      title: 'Teams',
+      subtitle: 'Equipos',
+      title: 'Todos',
       htmlBefore: '<i class="material-icons">view_module</i>',
       to: '/teams-list'
     },
     {
-      title: 'Add Team',
+      subtitle: 'Equipos',
+      title: 'Agregar',
       htmlBefore: '<i class="material-icons">note_add</i>',
       to: '/teams-form'
     },
     {
-      title: 'All PService',
+      subtitle: 'Personal de Servicio',
+      title: 'Todos',
       htmlBefore: '<i class="material-icons">view_module</i>',
       to: '/all-pservice'
     },
     {
-      title: 'Add PService',
+      subtitle: 'Personal de Servicio',
+      title: 'Agregar',
       htmlBefore: '<i class="material-icons">note_add</i>',
       to: '/add-new-pservice'
     },

@@ -26,7 +26,7 @@ class PServiceForm extends Component {
       <Container fluid className="main-content-container px-4 pb-4">
         {/* Page Header */}
         <AddPService
-          onSubmit={this.handleAddPServiceSubmit}
+          onSubmit={this.handleAddPServiceSubmit }
         ></AddPService>
       </Container>
     );

@@ -15,7 +15,7 @@ import BlogPosts from "./views/BlogPosts";
 import TeamsList from './views/TeamsList';
 import TeamForm from './views/TeamForm';
 import AddNewPService from './views/AddNewPService';
-import AllPService from './views/ShowAllPService'
+import AllPService from './views/ShowAllPService';
 
 export default [
   {

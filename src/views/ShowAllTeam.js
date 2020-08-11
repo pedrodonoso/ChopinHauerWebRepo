@@ -6,12 +6,16 @@ import {
   Row,
   Col,
   Card,
+  CardGroup,
   CardHeader,
   CardBody,
   CardFooter,
   Badge,
   Button,
   ButtonGroup,
+  Modal,
+  ModalBody,
+  ModalHeader
 } from "shards-react";
 
 import addpserviceService from '../services/pservices.service';
@@ -119,8 +123,8 @@ class AllPService extends Component {
                 </CardHeader>
                 <CardBody>
                   <p className="card-text d-inline-block mb-3">{post.nombres}  {post.apellidos}</p>
-
-                  <p><span className="text-muted">{post.email}</span></p>
+                  <span className="text-muted">{post.email}</span>
+                  <p></p>
                 </CardBody>
                 <CardFooter>
                   <div className="card-post__author d-flex">

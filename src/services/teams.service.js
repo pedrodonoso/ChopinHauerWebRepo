@@ -1,17 +1,17 @@
 import { api } from '../helpers';
 
-const basePath = 'v1/equipo';
+const basePath = 'team';
 
 function getAll() {
-    return api.get(`${basePath}/equipos`);
+    return api.get(`${basePath}/all`);
 }
 
 function show(teamId) {
-    return api.get(`${basePath}/?id=${teamId}`)
+    return api.get(`${basePath}/byid?id=${teamId}`)
 }
 
-function create(data) {
-    return api.post(`${basePath}/`, data);
+function create(tag,idlist) {
+    return api.post(`${basePath}/add?tag=${tag}&idlist=${idlist}`)
 }
 
 const teamsService = {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from "prop-types"; 
+import PropTypes from "prop-types";
 import {
   Row,
   Col,
@@ -11,13 +11,20 @@ import {
   Button,
 } from "shards-react";
 
+import EnhancedTable from "../add-new-team/SearchPServiceForTeam"
+import teamsService from '../../services/teams.service';
 
 
-const Team = ({
-  onSubmit
-  }) => {
-    const [name, setName] = useState('');
-    const [country, setCountry] = useState('');
+const Team = ({ onSubmit }) => {
+    const [lista, setLista] = useState('');
+    const [tag, setTag] = useState('');
+
+    function handleTeamSubmit(data) {
+      setLista(data);
+      console.log({name: "Kaaa?", list:data});
+      //teamsService.create(tag,data).then();
+      };
+
 
     return(
       <Row>
@@ -27,31 +34,25 @@ const Team = ({
             <CardBody>
               <Form className="add-new-post">
                 <FormGroup>
-                  <label>Team Name</label>
+                  <label>Especialidad del Equipo</label>
                   <FormInput
-                    value={name}
-                    onChange={(event) => setName(event.target.value)}
+                    value={tag}
+                    onChange={(event) => setTag(event.target.value)}
                     size="lg"
                     className="mb-3"
-                    placeholder="Tricolor de Paine" />
-                </FormGroup>
-                <FormGroup>
-                  <label>Team Country</label>
-                  <FormInput
-                    value={country}
-                    onChange={(event) => setCountry(event.target.value)}                    
-                    size="lg"
-                    className="mb-3"
-                    placeholder="Chile" />
+                    placeholder="Oncologico, Pabellón,etc." />
                 </FormGroup>
               </Form>
-              <Button 
+              <EnhancedTable onSubmit={handleTeamSubmit} />
+              <Button
                 theme="primary"
                 className="mb-2 mr-1"
-                onClick={(event) => onSubmit({ 'nombre': name, 'pais': country })}
-                // onClick={onSubmit}
+                onClick={(event) => onSubmit({
+                  'tag': tag, //TODO:verlo IMPORTANTE
+                  'idlist': lista //TODO:verlo IMPORTANTE
+                })}
                 >
-                  Agregar
+                  Crear
                 </Button>
             </CardBody>
           </Card>
