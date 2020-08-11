@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Nav, NavItem, NavLink } from "shards-react";
+import { Nav, NavItem, NavLink, Col, Row } from "shards-react";
 import { NavLink as RouteNavLink } from "react-router-dom";
 import { Store } from "../../../../flux";
 
@@ -37,7 +37,17 @@ class NabarNavItems extends React.Component {
         {items.map((item, idx) => (
           <NavItem className="border-right px-3" key={idx} item={item}>
             <NavLink tag={RouteNavLink} to={item.to}>
-              {item.title}
+
+              <Col>
+                <Col>
+                    <Row align="left">
+                      {item.title}
+                    </Row>
+                    <Row>
+                      <span className="small">{item.subtitle}</span>
+                    </Row>
+                  </Col>
+              </Col>
             </NavLink>
           </NavItem>
         ))}

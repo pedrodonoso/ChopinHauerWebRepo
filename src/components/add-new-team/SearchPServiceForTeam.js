@@ -191,7 +191,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EnhancedTable = ({onSubmit}) =>{
+const SearchTableList = ({onSubmit}) =>{
 
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
@@ -394,4 +394,4 @@ const EnhancedTable = ({onSubmit}) =>{
   );
 }
 
-export default EnhancedTable;
+export default SearchTableList;

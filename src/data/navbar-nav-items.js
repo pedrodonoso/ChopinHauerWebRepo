@@ -2,7 +2,7 @@ export default function() {
     return [
       {
         subtitle: 'Equipos',
-        title: 'Todos',
+        title: 'Mostrar todos',
         htmlBefore: '<i class="material-icons">view_module</i>',
         to: '/team/teams-list'
       },
@@ -14,7 +14,7 @@ export default function() {
       },
       {
         subtitle: 'Personal de Servicio',
-        title: 'Todos',
+        title: 'Mostrar todos',
         htmlBefore: '<i class="material-icons">view_module</i>',
         to: '/pservice/all-pservice'
       },

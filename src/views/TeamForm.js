@@ -31,8 +31,7 @@ class AddNewPost extends Component {
           <PageTitle sm="4" title="Añadir Equipo" subtitle="Equipos de Personal de Servicio" className="text-sm-left" />
         </Row>
 
-        <Team
-          onSubmit={this.handleTeamSubmit}
+        <Team onSubmit={this.handleTeamSubmit}
         ></Team>
       </Container>
     );

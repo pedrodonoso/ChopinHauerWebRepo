@@ -19,11 +19,13 @@ const AddNewPService = () => (
         <PServiceForm/>
       </Col>
 
-      {/* Sidebar Widgets */}
-      <Col lg="3" md="12">
-        <SidebarActions />
-        <SidebarCategories />
-      </Col>
+      {/*
+        <Col lg="3" md="12">
+          <SidebarActions />
+          <SidebarCategories />
+        </Col>
+         */}
+
     </Row>
   </Container>
 );

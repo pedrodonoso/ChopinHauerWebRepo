@@ -28,29 +28,6 @@ class AllPService extends Component {
       selected: {},
         open: false,
         PServiceList: [],
-
-        /*
-        PServiceList: [
-          { nombre: "Juan",
-            apellido: "Perez",
-            rut: "12312313",
-            profesion: "Enfermero",
-            telefono: "123123",
-          },
-          { nombre: "Alondra",
-            apellido: "Hernandez",
-            rut: "12375313",
-            profesion: "Medico Cirujano",
-            telefono: "2580902",
-            },
-          { nombre: "Hernestina",
-            apellido: "Ediberta",
-            rut: "09809805",
-            profesion: "Neuro Cirujano",
-            telefono: "686734859",
-            },
-      ]
-      */
     };
     this.deleteHandler = this.deleteHandler.bind(this);
     this.handleChange = this.handleChange.bind(this);
