@@ -27,11 +27,14 @@ const AddPService = ({onSubmit }) => {
     //RegExp(/^(([0-9])+\-([kK0-9])|)$/i);
     RegExp(/^(([0-9])+|)$/i);
     const validNombreRegex =
-    RegExp(/^([a-z A-Z])+$/i);
+    RegExp(/^[a-z A-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-z A-ZÀ-ÿ\u00f1\u00d1]*)*[a-z A-ZÀ-ÿ\u00f1\u00d1]+$/i);
+    //RegExp(/^([a-z A-Z])+$/i);
     const validApellidoRegex =
-    RegExp(/^([a-z A-Z])+$/i);
+    RegExp(/^[a-z A-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-z A-ZÀ-ÿ\u00f1\u00d1]*)*[a-z A-ZÀ-ÿ\u00f1\u00d1]+$/i);
+    //RegExp(/^([a-z A-Z])+$/i);
     const validProfesionRegex  =
-    RegExp(/^([a-z A-Z])+$/i);
+    RegExp(/^[a-z A-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-z A-ZÀ-ÿ\u00f1\u00d1]*)*[a-z A-ZÀ-ÿ\u00f1\u00d1]+$/i);
+    //RegExp(/^([a-z A-Z])+$/i);
     const validTelefonoRegex =
     RegExp(/^([0-9])*$/i);
 
@@ -68,7 +71,7 @@ const AddPService = ({onSubmit }) => {
       if(validRutRegex.test(input))  {
           setRut((prevState) => ({...prevState, valid: true, invalid: false}));
         return true;
-      } else if(input == "") {
+      } else if(input === "") {
         setRut((prevState) => ({...prevState, valid: null, invalid: false}));
       } else {
           setRut((prevState) => ({...prevState, valid: false, invalid: true}));
@@ -93,7 +96,7 @@ const AddPService = ({onSubmit }) => {
       if(validEmailRegex.test(input))  {
           setCorreo((prevState) => ({...prevState, valid: true, invalid: false}));
         return true;
-      } else if(input == "") {
+      } else if(input === "") {
         setCorreo((prevState) => ({...prevState, valid: null, invalid: false}));
       } else {
           setCorreo((prevState) => ({...prevState, valid: false, invalid: true}));
@@ -103,12 +106,12 @@ const AddPService = ({onSubmit }) => {
 
     const validTelefono = (e) =>{
       var input = e.target.value;
-      console.log(input == "")
+      console.log(input === "")
       setTelefono((prevState) => ({...prevState, telefono: input}));
       if(validTelefonoRegex.test(input))  {
           setTelefono((prevState) => ({...prevState, valid: true, invalid: false}));
         return true;
-      } else if(input == "") {
+      } else if(input === "") {
         setTelefono((prevState) => ({...prevState, valid: null, invalid: false}));
       } else {
           setTelefono((prevState) => ({...prevState, valid: false, invalid: true}));
@@ -206,9 +209,9 @@ const AddPService = ({onSubmit }) => {
                   'nombres': nombres.valid ? nombres.nombres : {},
                   'apellidos': apellidos.valid ? apellidos.apellidos : {},
                   'profesion': profesion.valid ? profesion.profesion : {},
-                  'run': rut.valid == true ? rut.rut : (rut.valid == null ? {}:0),
-                  'email':  correo.valid == true ? correo.correo : (correo.valid == null ? {} :"" ),
-                  'telefono': telefono.valid == true ? telefono.telefono : (telefono.valid == null ? {}:0),
+                  'run': rut.valid === true ? rut.rut : (rut.valid === null ? {}:0),
+                  'email':  correo.valid === true ? correo.correo : (correo.valid === null ? {} :"" ),
+                  'telefono': telefono.valid === true ? telefono.telefono : (telefono.valid === null ? {}:0),
                 });
                 console.log({
                   nombre: nombres,

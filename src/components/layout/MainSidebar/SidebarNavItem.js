@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { NavLink as RouteNavLink } from "react-router-dom";
-import { NavItem, NavLink,Row,Col } from "shards-react";
+import { NavItem, NavLink } from "shards-react";
 
 const SidebarNavItem = ({ item }) => (
 
