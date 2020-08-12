@@ -177,72 +177,59 @@ class TeamsList extends Component {
           <PageTitle sm="4" title="Muestra de todos los Equipos" subtitle="Equipos de Personal de Servicio" className="text-sm-left" />
         </Row>
 
-        <Row>
+        <Container>
           {teams.map((team, index) => {
             return (
-              <Col md="4" key={team.id}>
-                <Card small className="card-post">
+              <Row key={index}>
+                <Col >
+                <Card small className="card-post" >
                   <CardHeader>
                     <CardTitle>
                       {team.tag}
                     </CardTitle>
-
                   </CardHeader>
                   <CardBody>
-                    <Row  >
-                      {team.personalEquipo.map((pServiceItem, index) => {
-                        return (
-                            <Col  key={pServiceItem.id}>
-                              <ListGroup small={true} flush={false}  key={pServiceItem.id} align="center">
-
-                                <ListGroupItem >
-                                  <Col>
-                                    <Row>
-                                      <Badge> {pServiceItem.profesion}</Badge>
-                                    </Row>
-                                    <Row>
-                                      {pServiceItem.nombres}
-                                    </Row>
-                                  </Col>
-
-
-                                </ListGroupItem>
-                                <ButtonGroup>
-                                   <Button className="btn btn-warning btn-circle"
-                                     onClick={this.deleteHandlerPService.bind(this, team.id, pServiceItem.id)}>
-                                     <i className="fa fa-times"></i>
-                                   </Button>
-                               </ButtonGroup>
-                              </ListGroup>
-                            </Col>
-
-                        )
-                      })}
-                  </Row>
-
+                    <Col >
+                      <ListGroup flush={false} small={true}>
+                        {team.personalEquipo.map((pServiceItem, index) => {
+                          return (
+                            <ListGroupItem key={index}>
+                              <Row >
+                              <Col>
+                                {pServiceItem.nombres} {pServiceItem.apellidos}
+                              </Col>
+                              <Col>
+                                 {pServiceItem.profesion}
+                              </Col>
+                              <Col align="right">
+                                <Button
+                                  onClick={this.deleteHandlerPService.bind(this, team.id, pServiceItem.id)}>
+                                  Borrar
+                                </Button>
+                              </Col>
+                              </Row>
+                            </ListGroupItem>
+                          )})}
+                      </ListGroup>
+                  </Col>
                   </CardBody>
-                  <CardFooter>
-                    <Col md="4">
+                  <CardFooter align="center">
                       <ButtonGroup >
-                         <Button className="btn btn-warning btn-circle"
+                         <Button
                            onClick={this.deleteHandlerTeam.bind(this, team.id)}>
-                           <i className="fa fa-times"></i>
+                           Borrar
                          </Button>
-                         <p></p>
-                         <Button className="btn btn-success btn-circle"
+                         <Button theme="secondary"
                            onClick={this.toggleTeam.bind(this,team)}>
-
-                           <i className="fa fa-edit"></i>
+                           Editar
                          </Button>
                      </ButtonGroup>
-                    </Col>
                   </CardFooter>
                 </Card>
-              </Col>
-            )
-          })
-        }
-        </Row>
+                </Col>
+                </Row>
+            )})}
+      </Container>
       </Container>
     );
   }

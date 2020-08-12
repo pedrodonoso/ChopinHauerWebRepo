@@ -22,7 +22,7 @@ export default [
     path: "/",
     exact: true,
     layout: DefaultLayout,
-    component: () => <Redirect to="/blog-overview" />
+    component: () => <Redirect to="/pservice/add-new-pservice" />
   },
   {
     path: "/blog-overview",
@@ -79,4 +79,6 @@ export default [
     layout: DefaultLayout,
     component: TeamForm
   },
+
+
 ];

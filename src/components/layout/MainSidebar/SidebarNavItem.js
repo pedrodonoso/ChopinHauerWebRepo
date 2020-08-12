@@ -6,41 +6,21 @@ import { NavItem, NavLink,Row,Col } from "shards-react";
 const SidebarNavItem = ({ item }) => (
 
   <NavItem>
-    <NavLink tag={RouteNavLink} to={item.to}>
-      <Row>
-          <Col>
-            {item.htmlBefore && (
-              <div
-                className="d-inline-block item-icon-wrapper"
-                dangerouslySetInnerHTML={{ __html: item.htmlBefore }}
-              />
-            )}
-          </Col>
-          <Col>
-            <Col>
-                <Row align="left">
-                  {item.title}
-                </Row>
-                <Row>
-                  <span className="small">{item.subtitle}</span>
-                </Row>
-              </Col>
-          </Col>
-          <Col>
-            {item.htmlAfter && (
-              <div
-                className="d-inline-block item-icon-wrapper"
-                dangerouslySetInnerHTML={{ __html: item.htmlAfter }}
-              />
-            )}
-          </Col>
-      </Row>
-
-
-
-
-
-    </NavLink>
+    <a href={item.to}><NavLink disabled tag={RouteNavLink} to={item.to}>
+      {item.htmlBefore && (
+        <div
+          className="d-inline-block item-icon-wrapper"
+          dangerouslySetInnerHTML={{ __html: item.htmlBefore }}
+        />
+      )}
+      {item.title && <span>{item.title}</span>}
+      {item.htmlAfter && (
+        <div
+          className="d-inline-block item-icon-wrapper"
+          dangerouslySetInnerHTML={{ __html: item.htmlAfter }}
+        />
+      )}
+    </NavLink></a>
   </NavItem>
 );
 

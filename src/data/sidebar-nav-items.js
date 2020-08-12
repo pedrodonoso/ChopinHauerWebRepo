@@ -37,11 +37,40 @@ export default function() {
     //   to: "/errors",
     // },
     {
-      title: 'Equipos/Personal de Servicio',
-
+      title: 'Solicitudes y Reservas',
+      subtitle:"",
+      htmlBefore: '<i class="material-icons">view_module</i>',
+      to: 'https://solrec-app.herokuapp.com/'
+    },
+    {
+      title: 'Quimioterapia',
+      subtitle:"",
+      htmlBefore: '<i class="material-icons">view_module</i>',
+      to: 'https://opelcorsa-app.herokuapp.com/'
+    },
+    {
+      title: 'Pabellones',
+      subtitle:"",
+      htmlBefore: '<i class="material-icons">view_module</i>',
+      to: 'https://iif-front.herokuapp.com/Pabellones'
+    },
+    {
+      title: 'Sala de Recuperación',
+      subtitle:"",
+      htmlBefore: '<i class="material-icons">view_module</i>',
+      to: 'https://solrec-app.herokuapp.com/recuperacion'
+    },
+    {
+      title: 'Equipamientos',
+      subtitle:"",
+      htmlBefore: '<i class="material-icons">view_module</i>',
+      to: 'https://sogireact.herokuapp.com/listar-equipamientos '
+    },
+    {
+      title: 'Personal y Equipos 👩‍⚕️',
+      subtitle:"",
       htmlBefore: '<i class="material-icons">view_module</i>',
       to: '/pservice/all-pservice'
     },
-
   ];
 }

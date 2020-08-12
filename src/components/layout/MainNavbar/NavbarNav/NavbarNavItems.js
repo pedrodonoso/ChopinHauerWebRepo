@@ -37,8 +37,6 @@ class NabarNavItems extends React.Component {
         {items.map((item, idx) => (
           <NavItem className="border-right px-3" key={idx} item={item}>
             <NavLink tag={RouteNavLink} to={item.to}>
-
-              <Col>
                 <Col>
                     <Row align="left">
                       {item.title}
@@ -47,7 +45,6 @@ class NabarNavItems extends React.Component {
                       <span className="small">{item.subtitle}</span>
                     </Row>
                   </Col>
-              </Col>
             </NavLink>
           </NavItem>
         ))}
