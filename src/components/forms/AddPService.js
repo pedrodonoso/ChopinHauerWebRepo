@@ -20,6 +20,15 @@ const AddPService = ({onSubmit }) => {
     const [correo, setCorreo] = useState({correo:'',valid:false,invalid:false});
     const [telefono, setTelefono] = useState({telefono:'',valid:false,invalid:false});
 
+    function setForm() {
+      setNombres((prevState) => ({...prevState, nombres: '',valid:false,invalid:false}));
+      setApellidos((prevState) => ({...prevState, apellidos: '',valid:false,invalid:false}));
+      setRut((prevState) => ({...prevState, rut: '',valid:false,invalid:false}));
+      setProfesion((prevState) => ({...prevState, profesion: '',valid:false,invalid:false}));
+      setCorreo((prevState) => ({...prevState, correo: '',valid:false,invalid:false}));
+      setTelefono((prevState) => ({...prevState, telefono: '',valid:false,invalid:false}));
+    }
+
     const validEmailRegex =
     RegExp(/^((([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})|)$/i
     );
@@ -209,18 +218,11 @@ const AddPService = ({onSubmit }) => {
                   'nombres': nombres.valid ? nombres.nombres : {},
                   'apellidos': apellidos.valid ? apellidos.apellidos : {},
                   'profesion': profesion.valid ? profesion.profesion : {},
-                  'run': rut.valid === true ? rut.rut : (rut.valid === null ? {}:0),
+                  'run': rut.valid === true ? rut.rut : (rut.valid === null ? {}:""),
                   'email':  correo.valid === true ? correo.correo : (correo.valid === null ? {} :"" ),
-                  'telefono': telefono.valid === true ? telefono.telefono : (telefono.valid === null ? {}:0),
+                  'telefono': telefono.valid === true ? telefono.telefono : (telefono.valid === null ? {}:""),
                 });
-                console.log({
-                  nombre: nombres,
-                  apellido: apellidos,
-                  rut: rut,
-                  profesion: profesion,
-                  correo: correo,
-                  telefono: telefono
-                });
+                  setForm();
               }}
                 >
                   Agregar

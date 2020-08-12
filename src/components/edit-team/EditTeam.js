@@ -35,19 +35,19 @@ const EditTeam = ({post,open,thisToggle, onSubmit}) => {
 
     return(
     <Modal open={open} toggle={thisToggle} >
-      <ModalHeader>Editar Team</ModalHeader>
+      <ModalHeader>{post.tag}</ModalHeader>
       <ModalBody >
       <Form className="add-new-post">
-
+        {/*
         <FormGroup>
           <label>Nombre</label>
           <FormInput
-            value={setedTag}
+            value={tag}
             onChange={(event) => { setSetedTag(event.target.value)}}
             size="lg"
-            className="mb-3"
-            placeholder= {tag} />
+            className="mb-3" />
         </FormGroup>
+        */}
         <SearchTableList onSubmit={handleTeamSubmit}/>
       </Form>
       <Button

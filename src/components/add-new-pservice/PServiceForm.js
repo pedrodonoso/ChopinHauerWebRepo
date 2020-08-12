@@ -51,7 +51,7 @@ class PServiceForm extends Component {
         title: "Si se pudo!!😍 "
       }))
       .catch((error) => this.toggle({
-        text: " Debe ingresar los parametros obligatorios!! ✋",
+        text: "Error inesperado, revisa tu formulario!! ✋",
         title: "No se pudo 😁"
       }) );
   }

@@ -40,10 +40,13 @@ class TeamsList extends Component {
     this.deleteHandlerPService = this.deleteHandlerPService.bind(this);
     this.deleteHandlerTeam = this.deleteHandlerTeam.bind(this);
     this.toggle= this.toggle.bind(this);
+    this.togglePService = this.togglePService.bind(this);
+    this.toggleTeam = this.toggleTeam.bind(this);
 
   }
   handleChange() {
-    teamsService.getAll().then((response) => {
+    teamsService.getAll()
+    .then((response) => {
       this.setState({
         ...this.state,
         teams: response.status === 200 ? response.data : [],
@@ -53,7 +56,10 @@ class TeamsList extends Component {
         selectedTeam: [],
 
       })
-    });
+    }).catch((error) => this.toggle({
+      text: "Los Equipos no pueden mostrarse!! ✋",
+      title: "No se pudo 😁"
+    }));
     }
 
   editHandlerTeam(post) {
@@ -79,20 +85,29 @@ class TeamsList extends Component {
     let lista = [];
     lista.push(idPService);
     console.log(lista);
-    teamsService.deleteToTeam(idTeam,lista).then((response) =>{
-      console.log("ELIMINADO " + response.data);
-      this.handleChange();
-    });
-  }
+    teamsService.deleteToTeam(idTeam,lista)
+    .then((response) => {
+      this.toggle({
+      text: "Personal de Servicio eliminado del Equipo correctamente!! 😘",
+      title: "Si se pudo!!😍 "
+    })}).catch((error) => this.toggle({
+      text: "Personal de Servicio no pudo eliminarse del Equipo!! ✋",
+      title: "No se pudo 😁"
+      }));
+    }
 
   deleteHandlerTeam(id){
     console.log("ID:"+id);
-    teamsService.deleteTeam(id).then((response) =>{
-      console.log("ELIMINADO " + response.data);
-      this.handleChange();
-    });
-
-  }
+    teamsService.deleteTeam(id)
+    .then((response) => {
+      this.toggle({
+      text: "Equipo eliminado correctamente!! 😘",
+      title: "Si se pudo!!😍 ",
+    }).catch((error) => this.toggle({
+      text: "El Equipo no pudo eliminarse!! ✋",
+      title: "No se pudo 😁",
+    }))});
+}
   togglePService(post) {
     this.setState({
       ...this.state,
@@ -120,10 +135,9 @@ class TeamsList extends Component {
       text: "Equipo editado correctamente!! 😘",
       title: "Si se pudo!!😍 "
     });
-      this.handleChange();
 
-  })
-    .catch((error) => this.toggle({
+
+  }).catch((error) => this.toggle({
       text: "Debes ingresar Personal de Servicio que no esté asignado a un Equipo!! ✋",
       title: "No se pudo 😁"
     }));
@@ -144,6 +158,7 @@ class TeamsList extends Component {
         text: data.text,
       });
     }
+    this.handleChange();
 
     console.log({text:"toggle", open:this.state.open});
   }
