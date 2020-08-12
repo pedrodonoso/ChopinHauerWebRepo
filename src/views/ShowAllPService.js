@@ -109,15 +109,14 @@ class AllPService extends Component {
                       </Row>
                     </ListGroupItem>
                          <ButtonGroup>
-                            <Button className="btn btn-warning btn-circle"
+                            <Button
                               onClick={this.deleteHandler.bind(this, post.id)}>
-                              <i className="fa fa-times"></i>
+                              Borrar
                             </Button>
                             <p></p>
-                            <Button className="btn btn-success btn-circle"
+                            <Button theme="secondary"
                               onClick={this.toggle.bind(this,post)}>
-
-                              <i className="fa fa-edit"></i>
+                              Editar
                             </Button>
                         </ButtonGroup>
                     </ListGroup>

@@ -15,16 +15,17 @@ import {
 const AddPService = ({onSubmit }) => {
     const [nombres, setNombres] = useState({nombres:'',valid:false,invalid:false});
     const [apellidos, setApellidos] = useState({apellidos:'',valid:false,invalid:false});
-    const [rut, setRut] = useState({rut:'',valid:true,invalid:false});
+    const [rut, setRut] = useState({rut:'',valid:false,invalid:false});
     const [profesion, setProfesion] = useState({profesion:'',valid:false,invalid:false});
-    const [correo, setCorreo] = useState({correo:'',valid:true,invalid:false});
-    const [telefono, setTelefono] = useState({telefono:'',valid:true,invalid:false});
+    const [correo, setCorreo] = useState({correo:'',valid:false,invalid:false});
+    const [telefono, setTelefono] = useState({telefono:'',valid:false,invalid:false});
 
     const validEmailRegex =
-    RegExp(/(^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})|)$/i
+    RegExp(/^((([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})|)$/i
     );
     const validRutRegex =
-    RegExp(/(^([0-9])+\-([kK0-9])|)$/i);
+    //RegExp(/^(([0-9])+\-([kK0-9])|)$/i);
+    RegExp(/^(([0-9])+|)$/i);
     const validNombreRegex =
     RegExp(/^([a-z A-Z])+$/i);
     const validApellidoRegex =
@@ -67,6 +68,8 @@ const AddPService = ({onSubmit }) => {
       if(validRutRegex.test(input))  {
           setRut((prevState) => ({...prevState, valid: true, invalid: false}));
         return true;
+      } else if(input == "") {
+        setRut((prevState) => ({...prevState, valid: null, invalid: false}));
       } else {
           setRut((prevState) => ({...prevState, valid: false, invalid: true}));
         return false;
@@ -90,6 +93,8 @@ const AddPService = ({onSubmit }) => {
       if(validEmailRegex.test(input))  {
           setCorreo((prevState) => ({...prevState, valid: true, invalid: false}));
         return true;
+      } else if(input == "") {
+        setCorreo((prevState) => ({...prevState, valid: null, invalid: false}));
       } else {
           setCorreo((prevState) => ({...prevState, valid: false, invalid: true}));
         return false;
@@ -98,10 +103,13 @@ const AddPService = ({onSubmit }) => {
 
     const validTelefono = (e) =>{
       var input = e.target.value;
+      console.log(input == "")
       setTelefono((prevState) => ({...prevState, telefono: input}));
       if(validTelefonoRegex.test(input))  {
           setTelefono((prevState) => ({...prevState, valid: true, invalid: false}));
         return true;
+      } else if(input == "") {
+        setTelefono((prevState) => ({...prevState, valid: null, invalid: false}));
       } else {
           setTelefono((prevState) => ({...prevState, valid: false, invalid: true}));
         return false;
@@ -141,18 +149,6 @@ const AddPService = ({onSubmit }) => {
                   <FormFeedback  valid={apellidos.valid}>"Debes ingresar tus apellidos que contengan solo letras."</FormFeedback>
                 </FormGroup>
                 <FormGroup>
-                  <label>Rut</label>
-                  <FormInput
-                    value={rut.rut}
-                    valid={rut.valid}
-                    invalid={rut.invalid}
-                    onChange={validRut}
-                    size="lg"
-                    className="mb-3"
-                    placeholder="12353345-K" />
-                  <FormFeedback  valid={rut.valid}>"Puedes ingresar un rut válido, de la forma 12234245-k"</FormFeedback>
-                </FormGroup>
-                <FormGroup>
                   <label>Profesión *</label>
                   <FormInput
                     value={profesion.profesion}
@@ -164,6 +160,19 @@ const AddPService = ({onSubmit }) => {
                     placeholder="Enfermero" />
                   <FormFeedback  valid={profesion.valid}>"Debes ingresar una profesion que contenga solo letras."</FormFeedback>
                 </FormGroup>
+                <FormGroup>
+                  <label>Rut</label>
+                  <FormInput
+                    value={rut.rut}
+                    valid={rut.valid}
+                    invalid={rut.invalid}
+                    onChange={validRut}
+                    size="lg"
+                    className="mb-3"
+                    placeholder="12353345-K" />
+                  <FormFeedback  valid={rut.valid}>"Puedes ingresar un rut válido, de la forma 12234245-k"</FormFeedback>
+                </FormGroup>
+
                 <FormGroup>
                   <label>Correo</label>
                   <FormInput
@@ -196,10 +205,10 @@ const AddPService = ({onSubmit }) => {
                   onSubmit({
                   'nombres': nombres.valid ? nombres.nombres : {},
                   'apellidos': apellidos.valid ? apellidos.apellidos : {},
-                  'run': rut.valid ? rut.rut : {},
                   'profesion': profesion.valid ? profesion.profesion : {},
-                  'email':correo.valid ? correo.correo : {},
-                  'telefono':telefono.valid ? telefono.telefono : {},
+                  'run': rut.valid == true ? rut.rut : (rut.valid == null ? {}:0),
+                  'email':  correo.valid == true ? correo.correo : (correo.valid == null ? {} :"" ),
+                  'telefono': telefono.valid == true ? telefono.telefono : (telefono.valid == null ? {}:0),
                 });
                 console.log({
                   nombre: nombres,

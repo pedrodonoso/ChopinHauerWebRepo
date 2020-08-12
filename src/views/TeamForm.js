@@ -8,6 +8,14 @@ import PageTitle from "../components/common/PageTitle";
 import Team from "../components/forms/Team";
 import teamsService from '../services/teams.service';
 import Test from "../components/forms/Test";
+import { esES } from '@material-ui/core/locale';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: '#1976d2' },
+  },
+}, esES);
 
 class AddNewPost extends Component {
 
@@ -22,6 +30,7 @@ class AddNewPost extends Component {
   }
 
   handleTeamSubmit(data) {
+    console.log({nombre:"handleTeamSubmit",data:data})
     teamsService.create(data.tag,data.idlist)
     .then((response) => this.toggle({
       text: "Equipo creado correctamente!! 😘",
@@ -62,6 +71,7 @@ class AddNewPost extends Component {
     return (
       <Container fluid className="main-content-container px-4 pb-4">
         {/* Page Header */}
+        <ThemeProvider theme={theme}>
         <Row noGutters className="page-header py-4">
           <PageTitle sm="4" title="Añadir Equipo" subtitle="Equipos de Personal de Servicio" className="text-sm-left" />
         </Row>
@@ -73,6 +83,7 @@ class AddNewPost extends Component {
           text={this.state.text}
           title={this.state.title}
         />
+      </ThemeProvider>
       </Container>
     );
   }

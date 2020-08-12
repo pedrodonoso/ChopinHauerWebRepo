@@ -44,6 +44,7 @@ class PServiceForm extends Component {
     console.log({text:"handler", open:this.state.open});
   }
   handleAddPServiceSubmit(data) {
+    console.log({algo:"ALGO",data:data})
     addpserviceService.create(data)
       .then((response) => this.toggle({
         text: "Personal de servicio creado correctamente!! 😘",

@@ -20,7 +20,7 @@ const Team = ({ onSubmit }) => {
     const [tag, setTag] = useState({tag:[],valid:false,invalid:false});
 
     const validTagRegex =
-    RegExp(/^([a-z A-Z])+$/i);
+    RegExp(/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/i);
 
     const validTag = (e) =>{
       var input = e.target.value;
