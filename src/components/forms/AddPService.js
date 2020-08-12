@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState } from 'react';
 import PropTypes from "prop-types";
 import {
   Row,
@@ -9,35 +9,22 @@ import {
   FormGroup,
   FormInput,
   Button,
-  Collapse
-
+  FormFeedback
 } from "shards-react";
-import Test from '../forms/Test';
 
-
-
-const CollapseAlert = ({open,text}) => {
-  return(
-    <Collapse open={open}>
-        <span >
-            {text}
-        </span>
-    </Collapse>
-  );
-}
 const AddPService = ({onSubmit }) => {
     const [nombres, setNombres] = useState({nombres:'',valid:false,invalid:false});
     const [apellidos, setApellidos] = useState({apellidos:'',valid:false,invalid:false});
-    const [rut, setRut] = useState({rut:'',valid:false,invalid:false});
+    const [rut, setRut] = useState({rut:'',valid:true,invalid:false});
     const [profesion, setProfesion] = useState({profesion:'',valid:false,invalid:false});
-    const [correo, setCorreo] = useState({correo:'',valid:false,invalid:false});
-    const [telefono, setTelefono] = useState({telefono:'',valid:false,invalid:false});
+    const [correo, setCorreo] = useState({correo:'',valid:true,invalid:false});
+    const [telefono, setTelefono] = useState({telefono:'',valid:true,invalid:false});
 
     const validEmailRegex =
-    RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    RegExp(/(^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})|)$/i
     );
     const validRutRegex =
-    RegExp(/^([0-9])+\-([kK0-9])$/i);
+    RegExp(/(^([0-9])+\-([kK0-9])|)$/i);
     const validNombreRegex =
     RegExp(/^([a-z A-Z])+$/i);
     const validApellidoRegex =
@@ -45,31 +32,9 @@ const AddPService = ({onSubmit }) => {
     const validProfesionRegex  =
     RegExp(/^([a-z A-Z])+$/i);
     const validTelefonoRegex =
-    RegExp(/^([0-9])+$/i);
+    RegExp(/^([0-9])*$/i);
 
-    const validCorreo = (e) => {
-      var input = e.target.value;
-      setCorreo((prevState) => ({...prevState, correo: input}));
-      if(validEmailRegex.test(input))  {
-          setCorreo((prevState) => ({...prevState, valid: true, invalid: false}));
-        return true;
-      } else {
-          setCorreo((prevState) => ({...prevState, valid: false, invalid: true}));
-        return false;
-      }
-    }
 
-    const validRut = (e) =>{
-      var input = e.target.value;
-      setRut((prevState) => ({...prevState, rut: input}));
-      if(validRutRegex.test(input))  {
-          setRut((prevState) => ({...prevState, valid: true, invalid: false}));
-        return true;
-      } else {
-          setRut((prevState) => ({...prevState, valid: false, invalid: true}));
-        return false;
-      }
-    }
 
     const validNombre = (e) =>{
       var input = e.target.value;
@@ -95,6 +60,18 @@ const AddPService = ({onSubmit }) => {
       }
     }
 
+
+    const validRut = (e) =>{
+      var input = e.target.value;
+      setRut((prevState) => ({...prevState, rut: input}));
+      if(validRutRegex.test(input))  {
+          setRut((prevState) => ({...prevState, valid: true, invalid: false}));
+        return true;
+      } else {
+          setRut((prevState) => ({...prevState, valid: false, invalid: true}));
+        return false;
+      }
+    }
     const validProfesion = (e) =>{
       var input = e.target.value;
       setProfesion((prevState) => ({...prevState, profesion: input}));
@@ -103,6 +80,18 @@ const AddPService = ({onSubmit }) => {
         return true;
       } else {
           setProfesion((prevState) => ({...prevState, valid: false, invalid: true}));
+        return false;
+      }
+    }
+
+    const validCorreo = (e) => {
+      var input = e.target.value;
+      setCorreo((prevState) => ({...prevState, correo: input}));
+      if(validEmailRegex.test(input))  {
+          setCorreo((prevState) => ({...prevState, valid: true, invalid: false}));
+        return true;
+      } else {
+          setCorreo((prevState) => ({...prevState, valid: false, invalid: true}));
         return false;
       }
     }
@@ -119,10 +108,6 @@ const AddPService = ({onSubmit }) => {
       }
     }
 
-
-
-
-
     return(
       <Row>
         {/* Editor */}
@@ -130,8 +115,8 @@ const AddPService = ({onSubmit }) => {
           <Card small className="mb-3">
             <CardBody>
               <Form className="add-new-post">
-                <FormGroup>
-                  <label>Nombre</label>
+                <FormGroup check={false}>
+                  <label>Nombre *</label>
                   <FormInput
                     value= {nombres.nombres}
                     valid={nombres.valid}
@@ -140,10 +125,10 @@ const AddPService = ({onSubmit }) => {
                     size="lg"
                     className="mb-3"
                     placeholder="Juanin" />
-                  <CollapseAlert open={nombres.invalid} text="Debes ingresar tus nombres que contengan solo letras."/>
+                  <FormFeedback   valid={nombres.valid}>"Debes ingresar tus nombres que contengan solo letras"</FormFeedback>
                 </FormGroup>
                 <FormGroup>
-                  <label>Apellido</label>
+                  <label>Apellido  *</label>
                   <FormInput
                     value={apellidos.apellidos}
                     valid={apellidos.valid}
@@ -153,7 +138,7 @@ const AddPService = ({onSubmit }) => {
                     className="mb-3 "
                     placeholder="Perez"
                     />
-                  <CollapseAlert open={apellidos.invalid} text="Debes ingresar tus apellidos que contengan solo letras."/>
+                  <FormFeedback  valid={apellidos.valid}>"Debes ingresar tus apellidos que contengan solo letras."</FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   <label>Rut</label>
@@ -165,10 +150,10 @@ const AddPService = ({onSubmit }) => {
                     size="lg"
                     className="mb-3"
                     placeholder="12353345-K" />
-                  <CollapseAlert open={rut.invalid} text="Debes ingresar un rut válido, de la forma 12234245-k"/>
+                  <FormFeedback  valid={rut.valid}>"Puedes ingresar un rut válido, de la forma 12234245-k"</FormFeedback>
                 </FormGroup>
                 <FormGroup>
-                  <label>Profesión</label>
+                  <label>Profesión *</label>
                   <FormInput
                     value={profesion.profesion}
                     valid={profesion.valid}
@@ -177,7 +162,7 @@ const AddPService = ({onSubmit }) => {
                     size="lg"
                     className="mb-3"
                     placeholder="Enfermero" />
-                  <CollapseAlert open={profesion.invalid} text="Debes ingresar una profesion que contenga solo letras."/>
+                  <FormFeedback  valid={profesion.valid}>"Debes ingresar una profesion que contenga solo letras."</FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   <label>Correo</label>
@@ -189,7 +174,7 @@ const AddPService = ({onSubmit }) => {
                     size="lg"
                     className="mb-3"
                     placeholder="juan@gmail.com" />
-                  <CollapseAlert open={correo.invalid} text="Debes ingresar un correo válido, de la forma juan@mail.com"/>
+                  <FormFeedback  valid={correo.valid}>"Puedes ingresar un correo válido, de la forma juan@mail.com"</FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   <label>Telefono</label>
@@ -201,20 +186,30 @@ const AddPService = ({onSubmit }) => {
                     size="lg"
                     className="mb-3"
                     placeholder="934669676" />
-                  <CollapseAlert open={telefono.invalid} text="Debes ingresar un telefono que contenga solo números."/>
+                  <FormFeedback  valid={telefono.valid}>"Puedes ingresar un telefono que contenga solo números."</FormFeedback>
                 </FormGroup>
               </Form>
               <Button
                 theme="primary"
                 className="mb-2 mr-1"
-                onClick={(event) => onSubmit({
-                  'nombres': nombres.nombres,
-                  'apellidos': apellidos.apellidos,
-                  'run': rut.rut,
-                  'profesion':profesion.profesion,
-                  'email':correo.correo,
-                  'telefono':telefono.telefono
-                })}
+                onClick={(event) => {
+                  onSubmit({
+                  'nombres': nombres.valid ? nombres.nombres : {},
+                  'apellidos': apellidos.valid ? apellidos.apellidos : {},
+                  'run': rut.valid ? rut.rut : {},
+                  'profesion': profesion.valid ? profesion.profesion : {},
+                  'email':correo.valid ? correo.correo : {},
+                  'telefono':telefono.valid ? telefono.telefono : {},
+                });
+                console.log({
+                  nombre: nombres,
+                  apellido: apellidos,
+                  rut: rut,
+                  profesion: profesion,
+                  correo: correo,
+                  telefono: telefono
+                });
+              }}
                 >
                   Agregar
                 </Button>

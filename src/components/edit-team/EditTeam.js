@@ -9,30 +9,24 @@ import "../../assets/quill.css";
 import SearchTableList from "../add-new-team/SearchPServiceForTeam";
 
 const EditTeam = ({post,open,thisToggle, onSubmit}) => {
-  const [id,setId] = useState('');
-  const [tag,setTag] = useState('');
+  const [tag,setTag] = useState(post.tag);
   const [idlist, setIdlist] = useState('');
   const [setedTag,setSetedTag] = useState('');
-  const [setedIdlist, setSetedIdlist] = useState('');
+  //const [setedIdlist, setSetedIdlist] = useState('');
 
   useEffect(() => {    // Actualiza el título del documento usando la API del navegador
-    setId(post.id);
-    setTag(post.tag);
-    setIdlist(post.idlist);
-  },[]);
+    console.log({text:"useEffect editeam",post:post});
+    //setId(post.id);
+    //setTag(post.tag);
+    //setIdlist(post.idlist);
+    setTag(setedTag)
+  });
 
   function handleTeamSubmit(data) {
     console.log(data)
     if(data === "") {
-      console.log("NO PUSHEASTE NADA")
     } else {
-      console.log("CUUDADO")
-      setSetedIdlist(data);
-      console.log({
-        list: idlist,
-        setedlist: setedIdlist,
-        data: data,
-      });
+      setIdlist(data);
       //setSetedIdlist(data);
     }
 
@@ -59,11 +53,13 @@ const EditTeam = ({post,open,thisToggle, onSubmit}) => {
       <Button
         theme="primary"
         className="mb-2 mr-1"
-        onClick={(event) => onSubmit({
-          'id': id,
+        onClick={(event) => {onSubmit({
+          'id': post.id,
           'tag': setedTag === "" ? tag :  setedTag,
-          'idlist': setedIdlist === "" ? idlist :  setedIdlist,
-        })}
+          'idlist': idlist,
+        });
+        console.log({tagNew: setedTag, idlistNew: idlist});
+      }}
         >
           Editar
         </Button>

@@ -19,6 +19,7 @@ import teamsService from '../services/teams.service';
 import PageTitle from "../components/common/PageTitle";
 import EditTeam from "../components/edit-team/EditTeam";
 import EditPService from "../components/edit-pservice/EditPService";
+import Test from "../components/forms/Test";
 
 
 class TeamsList extends Component {
@@ -31,12 +32,14 @@ class TeamsList extends Component {
       selectedTeam: [],
       openPService: false,
       openTeam: false,
+      open:false
     };
     this.handleChange = this.handleChange.bind(this);
     this.editHandlerPService = this.editHandlerPService.bind(this);
     this.editHandlerTeam = this.editHandlerTeam.bind(this);
     this.deleteHandlerPService = this.deleteHandlerPService.bind(this);
     this.deleteHandlerTeam = this.deleteHandlerTeam.bind(this);
+    this.toggle= this.toggle.bind(this);
 
   }
   handleChange() {
@@ -111,11 +114,45 @@ class TeamsList extends Component {
 
   updateHandlerTeam(data){
     console.log({strng:"UpdateHandlerTeam",data:  data})
-    teamsService.addToTeam(data.id,data.idlist).then((response) => {
-      console.log({string:"ACTUALIZADO " ,data:response.data});
-
+    teamsService.addToTeam(data.id,data.idlist)
+    .then((response) => {
+      this.toggle({
+      text: "Equipo editado correctamente!! 😘",
+      title: "Si se pudo!!😍 "
     });
-    this.handleChange();
+      this.handleChange();
+
+  })
+    .catch((error) => this.toggle({
+      text: "Debes ingresar Personal de Servicio que no esté asignado a un Equipo!! ✋",
+      title: "No se pudo 😁"
+    }));
+  }
+
+
+  toggle(data) {
+    if(data === {}) {
+      this.setState({
+        ...this.state,
+        open: !this.state.open
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        open: !this.state.open,
+        title: data.title,
+        text: data.text,
+      });
+    }
+
+    console.log({text:"toggle", open:this.state.open});
+  }
+  handlerOpenDialog(data) {
+    this.setState({
+      ...this.state,
+      open: data
+    });
+    console.log({text:"handler", open:this.state.open});
   }
 
 
@@ -131,6 +168,10 @@ class TeamsList extends Component {
       <Container fluid className="main-content-container px-4">
         <EditTeam open={openTeam} thisToggle={this.toggleTeam.bind(this,{})} post={selectedTeam} onSubmit={this.updateHandlerTeam.bind(this)}/>
         <EditPService open={openPService} thisToggle={this.togglePService.bind(this,{})} post={selectedPService} />
+        <Test openOut={this.state.open} toggle={this.toggle.bind(this,{})} handler={this.handlerOpenDialog.bind(this)}
+          text={this.state.text}
+          title={this.state.title}
+        />
         {/* Page Header */}
         <Row noGutters className="page-header py-4">
           <PageTitle sm="4" title="Muestra de todos los Equipos" subtitle="Equipos de Personal de Servicio" className="text-sm-left" />
