@@ -12,7 +12,7 @@ const EditTeam = ({post,open,thisToggle, onSubmit}) => {
   const [tag,setTag] = useState(post.tag);
   const [idlist, setIdlist] = useState('');
   const [setedTag,setSetedTag] = useState('');
-  //const [setedIdlist, setSetedIdlist] = useState('');
+  //const [setedIdlist, setSetedIdlist] = useState(post.idlist);
 
   useEffect(() => {    // Actualiza el título del documento usando la API del navegador
     console.log({text:"useEffect editeam",post:post});
@@ -48,7 +48,7 @@ const EditTeam = ({post,open,thisToggle, onSubmit}) => {
             className="mb-3" />
         </FormGroup>
         */}
-        <SearchTableList onSubmit={handleTeamSubmit}/>
+        <SearchTableList onSubmit={handleTeamSubmit} />
       </Form>
       <Button
         theme="primary"

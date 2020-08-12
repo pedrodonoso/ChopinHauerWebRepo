@@ -103,11 +103,11 @@ class TeamsList extends Component {
       this.toggle({
       text: "Equipo eliminado correctamente!! 😘",
       title: "Si se pudo!!😍 ",
-    }).catch((error) => this.toggle({
+    })}).catch((error) => this.toggle({
       text: "El Equipo no pudo eliminarse!! ✋",
       title: "No se pudo 😁",
-    }))});
-}
+    }));
+  }
   togglePService(post) {
     this.setState({
       ...this.state,
@@ -135,8 +135,6 @@ class TeamsList extends Component {
       text: "Equipo editado correctamente!! 😘",
       title: "Si se pudo!!😍 "
     });
-
-
   }).catch((error) => this.toggle({
       text: "Debes ingresar Personal de Servicio que no esté asignado a un Equipo!! ✋",
       title: "No se pudo 😁"
