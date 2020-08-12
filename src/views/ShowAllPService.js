@@ -8,10 +8,11 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Badge,
   Button,
   ButtonGroup,
+  ListGroupItem,
+  ListGroup
 } from "shards-react";
 
 import addpserviceService from '../services/pservices.service';
@@ -41,6 +42,7 @@ class AllPService extends Component {
       open: !this.state.open
     });
 
+
   }
 
   handleChange() {
@@ -63,7 +65,9 @@ class AllPService extends Component {
   updateHandler(data){
     console.log(data);
     addpserviceService.updatePServicio(data).then((response) =>{
-      console.log("ACTUALIZADO " + response.data);
+      console.log({
+        text: "ACTUALIZADO ", data: data
+      });
       this.handleChange();
     });
   }
@@ -75,10 +79,11 @@ class AllPService extends Component {
     const {
       open,
       PServiceList,
+      selected,
     } = this.state;
     return (
       <Container fluid className="main-content-container px-4">
-        <EditPService open={open} thisToggle={this.toggle.bind(this,{})} post={this.state.selected} onSubmit={this.updateHandler}/>
+        <EditPService open={open} thisToggle={this.toggle.bind(this,{})} post={selected} onSubmit={this.updateHandler.bind(this)}/>
         {/* Page Header */}
         <Row noGutters className="page-header py-4">
           <PageTitle sm="4" title="Todo el Personal de Servicio" subtitle="Personal de Servicio" className="text-sm-left" />
@@ -95,27 +100,30 @@ class AllPService extends Component {
                   </Badge>
                 </CardHeader>
                 <CardBody>
-                  <p className="card-text d-inline-block mb-3">{post.nombres}  {post.apellidos}</p>
+                  <ListGroup small={true} flush={false}  key={post.id} align="center">
+                    <ListGroupItem >
+                      <Row>
+                        <Col>
+                          {post.nombres} {post.apellidos}
+                        </Col>
+                      </Row>
+                    </ListGroupItem>
+                         <ButtonGroup>
+                            <Button className="btn btn-warning btn-circle"
+                              onClick={this.deleteHandler.bind(this, post.id)}>
+                              <i className="fa fa-times"></i>
+                            </Button>
+                            <p></p>
+                            <Button className="btn btn-success btn-circle"
+                              onClick={this.toggle.bind(this,post)}>
 
-                  <p><span className="text-muted">{post.email}</span></p>
+                              <i className="fa fa-edit"></i>
+                            </Button>
+                        </ButtonGroup>
+                    </ListGroup>
+
+
                 </CardBody>
-                <CardFooter>
-                  <div className="card-post__author d-flex">
-                     <ButtonGroup>
-                        <Button className="btn btn-warning btn-circle"
-                          onClick={this.deleteHandler.bind(this, post.id)}>
-                          <i className="fa fa-times"></i>
-                        </Button>
-                        <p></p>
-                        <Button className="btn btn-success btn-circle"
-                          onClick={this.toggle.bind(this,post)}>
-
-                          <i className="fa fa-edit"></i>
-                        </Button>
-
-                    </ButtonGroup>
-                  </div>
-                </CardFooter>
 
               </Card>
             </Col>

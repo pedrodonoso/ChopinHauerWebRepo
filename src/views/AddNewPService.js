@@ -2,8 +2,6 @@ import React from "react";
 import { Container, Row, Col } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
-import SidebarActions from "../components/add-new-post/SidebarActions";
-import SidebarCategories from "../components/add-new-post/SidebarCategories";
 import PServiceForm from "../components/add-new-pservice/PServiceForm";
 
 const AddNewPService = () => (

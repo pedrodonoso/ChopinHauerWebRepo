@@ -8,18 +8,15 @@ import {
   CardHeader,
   CardFooter,
   CardTitle,
-  CardSubtitle,
   ListGroup,
   ListGroupItem,
   Badge,
-  CardDeck,
   ButtonGroup,
   Button
 } from "shards-react";
 import teamsService from '../services/teams.service';
 
 import PageTitle from "../components/common/PageTitle";
-import addpserviceService from '../services/pservices.service';
 import EditTeam from "../components/edit-team/EditTeam";
 import EditPService from "../components/edit-pservice/EditPService";
 
@@ -35,6 +32,7 @@ class TeamsList extends Component {
       openPService: false,
       openTeam: false,
     };
+    this.handleChange = this.handleChange.bind(this);
     this.editHandlerPService = this.editHandlerPService.bind(this);
     this.editHandlerTeam = this.editHandlerTeam.bind(this);
     this.deleteHandlerPService = this.deleteHandlerPService.bind(this);
@@ -46,6 +44,11 @@ class TeamsList extends Component {
       this.setState({
         ...this.state,
         teams: response.status === 200 ? response.data : [],
+        openPService: false,
+        openTeam: false,
+        selectedPService: [],
+        selectedTeam: [],
+
       })
     });
     }
@@ -104,21 +107,17 @@ class TeamsList extends Component {
     });
   }
 
-  updateHandlerPService(data){
-    console.log(data);
-    addpserviceService.updatePServicio(data).then((response) =>{
-      console.log("ACTUALIZADO " + response.data);
-      this.handleChange();
-    });
-  }
+
 
   updateHandlerTeam(data){
-    console.log(data);
-    teamsService.updatePServicio(data).then((response) =>{
-      console.log("ACTUALIZADO " + response.data);
-      this.handleChange();
+    console.log({strng:"UpdateHandlerTeam",data:  data})
+    teamsService.addToTeam(data.id,data.idlist).then((response) => {
+      console.log({string:"ACTUALIZADO " ,data:response.data});
+
     });
+    this.handleChange();
   }
+
 
   componentDidMount() {
     this.handleChange();
@@ -130,8 +129,8 @@ class TeamsList extends Component {
 
     return (
       <Container fluid className="main-content-container px-4">
-        <EditTeam open={openTeam} thisToggle={this.toggleTeam.bind(this,{})} post={selectedTeam} onSubmit={this.updateHandlerTeam}/>
-        <EditPService open={openPService} thisToggle={this.togglePService.bind(this,{})} post={selectedPService} onSubmit={this.updateHandlerPService}/>
+        <EditTeam open={openTeam} thisToggle={this.toggleTeam.bind(this,{})} post={selectedTeam} onSubmit={this.updateHandlerTeam.bind(this)}/>
+        <EditPService open={openPService} thisToggle={this.togglePService.bind(this,{})} post={selectedPService} />
         {/* Page Header */}
         <Row noGutters className="page-header py-4">
           <PageTitle sm="4" title="Muestra de todos los Equipos" subtitle="Equipos de Personal de Servicio" className="text-sm-left" />
@@ -156,15 +155,14 @@ class TeamsList extends Component {
                               <ListGroup small={true} flush={false}  key={pServiceItem.id} align="center">
 
                                 <ListGroupItem >
-                                  <Row>
-                                    <Col>
-                                      {pServiceItem.nombres}
-
-                                    </Col>
-                                    <Col>
+                                  <Col>
+                                    <Row>
                                       <Badge> {pServiceItem.profesion}</Badge>
-                                    </Col>
-                                  </Row>
+                                    </Row>
+                                    <Row>
+                                      {pServiceItem.nombres}
+                                    </Row>
+                                  </Col>
 
 
                                 </ListGroupItem>
@@ -173,16 +171,7 @@ class TeamsList extends Component {
                                      onClick={this.deleteHandlerPService.bind(this, team.id, pServiceItem.id)}>
                                      <i className="fa fa-times"></i>
                                    </Button>
-                                   <p></p>
-                                   <Button className="btn btn-success btn-circle"
-                                     onClick={this.editHandlerPService.bind(this,pServiceItem)}>
-
-                                     <i className="fa fa-edit"></i>
-                                   </Button>
-
                                </ButtonGroup>
-
-
                               </ListGroup>
                             </Col>
 
@@ -192,19 +181,20 @@ class TeamsList extends Component {
 
                   </CardBody>
                   <CardFooter>
-                    <ButtonGroup>
-                       <Button className="btn btn-warning btn-circle"
-                         onClick={this.deleteHandlerTeam.bind(this, team.id)}>
-                         <i className="fa fa-times"></i>
-                       </Button>
-                       <p></p>
-                       <Button className="btn btn-success btn-circle"
-                         onClick={this.editHandlerTeam.bind(this,team)}>
+                    <Col md="4">
+                      <ButtonGroup >
+                         <Button className="btn btn-warning btn-circle"
+                           onClick={this.deleteHandlerTeam.bind(this, team.id)}>
+                           <i className="fa fa-times"></i>
+                         </Button>
+                         <p></p>
+                         <Button className="btn btn-success btn-circle"
+                           onClick={this.toggleTeam.bind(this,team)}>
 
-                         <i className="fa fa-edit"></i>
-                       </Button>
-
-                   </ButtonGroup>
+                           <i className="fa fa-edit"></i>
+                         </Button>
+                     </ButtonGroup>
+                    </Col>
                   </CardFooter>
                 </Card>
               </Col>

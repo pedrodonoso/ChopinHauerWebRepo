@@ -1,4 +1,4 @@
-import React, { Component  } from 'react';
+import React, {  useState,useEffect  } from 'react';
 import { Modal,
   ModalBody,
   ModalHeader,Form,FormGroup,FormInput,Button } from "shards-react";
@@ -8,43 +8,39 @@ import "react-quill/dist/quill.snow.css";
 import "../../assets/quill.css";
 import SearchTableList from "../add-new-team/SearchPServiceForTeam";
 
-class EditTeam extends Component {
-  constructor(props) {
-    super(props);
+const EditTeam = ({post,open,thisToggle, onSubmit}) => {
+  const [id,setId] = useState('');
+  const [tag,setTag] = useState('');
+  const [idlist, setIdlist] = useState('');
+  const [setedTag,setSetedTag] = useState('');
+  const [setedIdlist, setSetedIdlist] = useState('');
 
-    this.state = {
-      // First list of posts.
-        tag:  this.props.post.tag,
-        idlist: this.props.post.idlist,
+  useEffect(() => {    // Actualiza el título del documento usando la API del navegador
+    setId(post.id);
+    setTag(post.tag);
+    setIdlist(post.idlist);
+  },[]);
+
+  function handleTeamSubmit(data) {
+    console.log(data)
+    if(data === "") {
+      console.log("NO PUSHEASTE NADA")
+    } else {
+      console.log("CUUDADO")
+      setSetedIdlist(data);
+      console.log({
+        list: idlist,
+        setedlist: setedIdlist,
+        data: data,
+      });
+      //setSetedIdlist(data);
+    }
+
     };
-    this.onUpdate = this.onUpdate.bind(this);
-  }
 
-  onUpdate(data) {
-    this.setState({
-      ...this.state,
-      tag: data.tag,
-      idlist: data.idlist,
-    });
 
-    console.log(this.state);
-  }
-
-  handleTeamSubmit(data) {
-    this.setState({
-      ...this.state,
-      idlist: data,
-    });
-    //teamsService.create(tag,data).then();
-    };
-
-  render() {
-    const {
-      tag,
-      idlist
-    } = this.state;
     return(
-    <Modal open={this.props.open} toggle={this.props.thisToggle} >
+    <Modal open={open} toggle={thisToggle} >
       <ModalHeader>Editar Team</ModalHeader>
       <ModalBody >
       <Form className="add-new-post">
@@ -52,20 +48,21 @@ class EditTeam extends Component {
         <FormGroup>
           <label>Nombre</label>
           <FormInput
-            value={tag}
-            onChange={(event) => { this.setState({ ...this.state, tag: event.target.value})}}
+            value={setedTag}
+            onChange={(event) => { setSetedTag(event.target.value)}}
             size="lg"
             className="mb-3"
-            placeholder="Juanin" />
+            placeholder= {tag} />
         </FormGroup>
-        <SearchTableList onSubmit={this.handleTeamSubmit}/>
+        <SearchTableList onSubmit={handleTeamSubmit}/>
       </Form>
       <Button
         theme="primary"
         className="mb-2 mr-1"
-        onClick={(event) => this.props.onSubmit({
-          'tag': this.state.tag ,
-          'idlist': this.state.idlist,
+        onClick={(event) => onSubmit({
+          'id': id,
+          'tag': setedTag === "" ? tag :  setedTag,
+          'idlist': setedIdlist === "" ? idlist :  setedIdlist,
         })}
         >
           Editar
@@ -76,6 +73,5 @@ class EditTeam extends Component {
   }
 
 
-}
 
 export default EditTeam;

@@ -18,8 +18,6 @@ import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import addpserviceService from '../../services/pservices.service';
 
 
@@ -198,7 +196,6 @@ const SearchTableList = ({onSubmit}) =>{
   const [orderBy, setOrderBy] = useState('calories');
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
-  const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(3);
   const [searchList, setSearchList] = useState([]);
   const [searchSelected, setSearchSelected] = useState([]);
@@ -224,7 +221,6 @@ const SearchTableList = ({onSubmit}) =>{
         console.log("useEffect");
         getData();
         //setSubmit();
-        setSubmit(searchSelected);
         console.log({name: "Searchlist", list:searchList})
         console.log({name: "Selected", list:selected})
         console.log({name: "SearchSelected", list:searchSelected})
@@ -309,9 +305,6 @@ const SearchTableList = ({onSubmit}) =>{
     setPage(0);
   };
 
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
@@ -326,7 +319,7 @@ const SearchTableList = ({onSubmit}) =>{
           <Table
             className={classes.table}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size={ 'small' }
             aria-label="enhanced table"
           >
             <EnhancedTableHead
@@ -369,7 +362,7 @@ const SearchTableList = ({onSubmit}) =>{
                   );
                 })}
               {emptyRows > 0 && (
-                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
+                <TableRow style={{ height: ( 33 ) * emptyRows }}>
                   <TableCell colSpan={6} />
                 </TableRow>
               )}
@@ -386,10 +379,7 @@ const SearchTableList = ({onSubmit}) =>{
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
+
     </div>
   );
 }

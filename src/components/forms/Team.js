@@ -12,7 +12,6 @@ import {
 } from "shards-react";
 
 import EnhancedTable from "../add-new-team/SearchPServiceForTeam"
-import teamsService from '../../services/teams.service';
 
 
 const Team = ({ onSubmit }) => {
@@ -34,6 +33,7 @@ const Team = ({ onSubmit }) => {
             <CardBody>
               <Form className="add-new-post">
                 <FormGroup>
+                  {/*<DropdownEspecialidad/>*/}
                   <label>Especialidad del Equipo</label>
                   <FormInput
                     value={tag}
@@ -42,8 +42,10 @@ const Team = ({ onSubmit }) => {
                     className="mb-3"
                     placeholder="Oncologico, Pabellón,etc." />
                 </FormGroup>
+                <label>Personal de Servcio que se agregará al Equipo</label>
+                <EnhancedTable onSubmit={handleTeamSubmit} />
               </Form>
-              <EnhancedTable onSubmit={handleTeamSubmit} />
+
               <Button
                 theme="primary"
                 className="mb-2 mr-1"

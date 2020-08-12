@@ -1,54 +1,42 @@
-import React, { Component  } from 'react';
+import React, { useState,useEffect   } from 'react';
 import { Modal,
   ModalBody,
   ModalHeader,Form,FormGroup,FormInput,Button } from "shards-react";
+  import TextField from '@material-ui/core/TextField';
+  import PropTypes from "prop-types";
 
 
 import "react-quill/dist/quill.snow.css";
 import "../../assets/quill.css";
 
-class EditPService extends Component {
-  constructor(props) {
-    super(props);
+const EditPService =({post,open, thisToggle,onSubmit}) => {
+  const [id,setId] = useState('');
+  const [nombres, setNombres] = useState('');
+  const [apellidos, setApellidos] = useState('');
+  const [rut, setRut] = useState('');
+  const [profesion, setProfesion] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [setedNombres, setSetedNombres] = useState('');
+  const [setedApellidos, setSetedApellidos] = useState('');
+  const [setedRut, setSetedRut] = useState('');
+  const [setedProfesion, setSetedProfesion] = useState('');
+  const [setedCorreo, setSetedCorreo] = useState('');
+  const [setedTelefono, setSetedTelefono] = useState('');
 
-    this.state = {
-      // First list of posts.
-        nombre:  this.props.post.nombres,
-        apellido: this.props.post.apellidos,
-        rut: this.props.post.run,
-        profesion: this.props.post.profesion,
-        emaill: this.props.post.email,
-        telefono: this.props.post.telefono
-    };
-    this.onUpdate = this.onUpdate.bind(this);
-  }
-
-  onUpdate(data) {
-    this.setState({
-      ...this.state,
-      nombre: data.nombres,
-      apellido: data.apellidos,
-      rut: data.run,
-      profesion: data.profesion,
-      correo: data.email,
-      telefono: data.telefono
+    useEffect(() => {    // Actualiza el título del documento usando la API del navegador
+      setId(post.id);
+      setNombres(post.nombres);
+      setApellidos(post.apellidos);
+      setRut(post.run);
+      setProfesion(post.profesion);
+      setCorreo(post.email);
+      setTelefono(post.telefono);
     });
 
-    console.log(this.state.data)
-  }
 
-
-  render() {
-    const {
-      nombre,
-      apellido,
-      rut,
-      profesion,
-      email,
-      telefono
-    } = this.state;
     return(
-    <Modal open={this.props.open} toggle={this.props.thisToggle} >
+    <Modal open={open} toggle={thisToggle} >
       <ModalHeader>Editar Personal de Servicio</ModalHeader>
       <ModalBody >
       <Form className="add-new-post">
@@ -56,69 +44,82 @@ class EditPService extends Component {
         <FormGroup>
           <label>Nombre</label>
           <FormInput
-            value={nombre}
-            onChange={(event) => { this.setState({ ...this.state, nombre: event.target.value})}}
+            value= {setedNombres}
+            onChange={(event) => setSetedNombres(event.target.value)}
             size="lg"
             className="mb-3"
-            placeholder="Juanin" />
+            placeholder={nombres} />
         </FormGroup>
         <FormGroup>
           <label>Apellido</label>
           <FormInput
-            value={apellido}
-            onChange={(event) => { this.setState({ ...this.state, apellido: event.target.value})}}
+            value={setedApellidos}
+            onChange={(event) => setSetedApellidos(event.target.value)}
             size="lg"
             className="mb-3"
-            placeholder="Perez" />
+            placeholder={apellidos} />
         </FormGroup>
         <FormGroup>
           <label>Rut</label>
           <FormInput
-            value={rut}
-            onChange={(event) => { this.setState({ ...this.state, rut: event.target.value})}}
+            value={setedRut}
+            onChange={(event) => setSetedRut(event.target.value)}
             size="lg"
             className="mb-3"
-            placeholder="12353345" />
+            placeholder={rut} />
         </FormGroup>
         <FormGroup>
           <label>Profesión</label>
           <FormInput
-            value={profesion}
-            onChange={(event) => { this.setState({ ...this.state, profesion: event.target.value})}}
+            value={setedProfesion}
+            onChange={(event) => setSetedProfesion(event.target.value)}
             size="lg"
             className="mb-3"
-            placeholder="Enfermero" />
+            placeholder={profesion} />
         </FormGroup>
         <FormGroup>
           <label>Correo</label>
           <FormInput
-            value={email}
-            onChange={(event) => { this.setState({ ...this.state, correo: event.target.value})}}
+            value={setedCorreo}
+            onChange={(event) =>setSetedCorreo(event.target.value)}
             size="lg"
             className="mb-3"
-            placeholder="juan@gmail.com" />
+            placeholder={correo} />
         </FormGroup>
         <FormGroup>
           <label>Telefono</label>
           <FormInput
-            value={telefono}
-            onChange={(event) => { this.setState({ ...this.state, telefono: event.target.value})}}
+            value={setedTelefono}
+            onChange={(event) => setSetedTelefono(event.target.value)}
             size="lg"
             className="mb-3"
-            placeholder="934669676" />
+            placeholder={telefono}
+             />
         </FormGroup>
       </Form>
       <Button
         theme="primary"
         className="mb-2 mr-1"
-        onClick={(event) => this.props.onSubmit({
-          'nombres': this.state.nombre ,
-          'apellidos': this.state.apellido,
-          'run': this.state.rut,
-          'profesion':this.state.profesion,
-          'email':this.state.correo,
-          'telefono':this.state.telefono
-        })}
+        onClick={(event) => {
+          onSubmit({
+          'id': id,
+          'nombres': setedNombres === "" ? nombres :  setedNombres,
+          'apellidos': setedApellidos  === "" ? apellidos :  setedApellidos,
+          'run': setedRut  === "" ? rut :  setedRut,
+          'profesion':setedProfesion === "" ? profesion :  setedProfesion,
+          'email':setedCorreo === "" ? correo :  setedCorreo,
+          'telefono': setedTelefono === "" ? telefono :  setedTelefono
+        });
+
+        setSetedNombres("");
+        setSetedApellidos("");
+        setSetedRut("");
+        setSetedProfesion("");
+        setSetedCorreo("");
+        setSetedTelefono("");
+      }
+
+      }
         >
           Editar
         </Button>
@@ -127,7 +128,11 @@ class EditPService extends Component {
   );
   }
 
+  EditPService.propTypes = {
+    onSubmit: PropTypes.func,
+  }
 
-}
-
-export default EditPService;
+  EditPService.defaultProps = {
+    onSubmit: () => {},
+  }
+  export default EditPService;

@@ -21,12 +21,17 @@ function deleteTeam(id) {
 function deleteToTeam(id,idlist) {
     return api.post(`${basePath}/deleteToTeam?id=${id}&idlist=${idlist}`)
 }
+
+function addToTeam(id,idlist) {
+  return api.post(`${basePath}/addToTeam?id=${id}&idlist=${idlist}`)
+}
 const teamsService = {
     getAll,
     show,
     create,
     deleteTeam,
-    deleteToTeam
+    deleteToTeam,
+    addToTeam
 };
 
 export default teamsService;
