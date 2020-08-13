@@ -58,7 +58,7 @@ export default function() {
       title: 'Sala de Recuperación',
       subtitle:"",
       htmlBefore: '<i class="material-icons">view_module</i>',
-      to: 'https://solrec-app.herokuapp.com/recuperacion'
+      to: 'https://iif-front.herokuapp.com/recuperacion'
     },
     {
       title: 'Equipamientos',
